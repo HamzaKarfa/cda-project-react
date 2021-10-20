@@ -1,0 +1,11 @@
+.card-img{
+  position: relative !important;
+}
+.main-section .row .col-7 :first-child {
+    height: 100% !important;
+}
+.main-section .row .col-7 img {
+    height: 100% !important;
+}
+
+

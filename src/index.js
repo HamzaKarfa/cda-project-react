@@ -1,13 +1,23 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { Provider } from 'react-redux';
+import rootReducer from './reducer';
+import thunkMiddleware  from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
 import reportWebVitals from './reportWebVitals';
+import App from './App';
+import './overide-bootstrap.css';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+const store = createStore( rootReducer, applyMiddleware(thunkMiddleware))
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>,
   document.getElementById('root')
 );
 

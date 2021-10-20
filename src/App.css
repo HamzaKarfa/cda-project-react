@@ -1,38 +1,114 @@
-.App {
-  text-align: center;
+body{
+  --primary-lighten-color: #EFE379;
+  --primary: #ADC248;
+  --primary-variant-1: #ADC248;
+  --primary-variant-2: #98AA3F;
+  --primary-variant-3: #829136;
+  --primary-variant-4: #586325;
+  --primary-darken-color: #424B1C;
+
+  --secondary-lighten-color: #F04849;
+  --secondary: #ED2D2F;
+  --secondary-variant-1: #D7292B;
+  --secondary-variant-2: #921C1D;
+  --secondary-variant-3: #6B1515;
+  --secondary-variant-4: #921C1D;
+  --secondary-darken-color: #430D0D;
+
+  --tertiary: #EAE2B7 ;
+  --tertiary-variant-1: #EFDA9C;
+  --tertiary-variant-2: #F3D180;
+  --tertiary-variant-3: #F6CB6E;
+  --tertiary-variant-4: #F2C05A;
+
+  --white: #F5F0F6;
+  --dark: #040101;
+  --gray: #333;
+
+
+  /* GRAND FRAIS COLOR */
+  --orange : #fcb731;
+  --yellow : #fbe629;
+  --red : #cb1c48;
+  --blue : #355da5;
+
+
+
+
+  font-size: 18px;
+
+  margin: 0;
+  height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app{
+  overflow: hidden;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+/* For All*/
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.center-flex{
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+}
+hr {
+  color : var(--primary-variant-4);
+  border-color: var(--primary-variant-3);
+  }
+
+
+  /* SCROLL BAR */
+::-webkit-scrollbar {
+    width: 5px;
 }
 
-.App-link {
-  color: #61dafb;
+
+::-webkit-scrollbar-thumb {
+    opacity: 1;
+    border-radius: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.color-primary{
+  color:var(--primary);
 }
+.bg-color-primary{
+  background-color:var(--primary);
+}
+.color-secondary{
+  color:var(--secondary);
+}
+.bg-color-secondary{
+  background-color:var(--secondary);
+}
+.color-orange{
+  color:var(--orange);
+}
+.bg-color-orange{
+  background-color:var(--orange);
+}
+.color-yellow{
+  color:var(--yellow);
+}
+.bg-color-yellow{
+  background-color:var(--yellow);
+}
+.color-blue{
+  color:var(--blue);
+}
+.bg-color-blue{
+  background-color:var(--blue);
+}
+.color-red{
+  color:var(--red);
+}
+.bg-color-red{
+  background-color:var(--red);
+}
+
+.color-gray{
+    color:var(--gray);
+  }
+  .bg-color-gray{
+    background-color:var(--gray);
+  }

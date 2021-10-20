@@ -1,55 +1,40 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import Header from './components/Header'
+import {connect} from "react-redux"
+import { getCategories, isLoading } from './actions'
+import Router from './components/App/router';
+import Footer from './components/Footer';
+import { useEffect, useState } from 'react';
+import "./App.css"
+function mapStateToProps (state, props){
+  return {
+    state : state,
+    props:props
+  }
+}
+function mapDispatchToProps(dispatch){
+  return {
+    getCategoriesList: (data)=>dispatch(getCategories(data)),
+    isLoading:(payload)=>dispatch(isLoading(payload))
+  }
+}
 
-export default function App() {
+function HomeToConnect({getCategoriesList,state}) {
+  const [isLoading,setIsLoading] = useState(true)
+  console.log(state)
+  useEffect(() => {
+    if (isLoading) {
+      getCategoriesList()
+      setIsLoading(false)
+    }
+  });
   return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-          </ul>
-        </nav>
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+    <div>
+      <Header Links ={state.categories.length > 0 ?state.categories : [] } />
+      <Router/>
+      <Footer/>
+    </div>
   );
 }
 
-function Home() {
-  return <h2>Home</h2>;
-}
-
-function About() {
-  return <h2>About</h2>;
-}
-
-function Users() {
-  return <h2>Users</h2>;
-}
+const Home =  connect(mapStateToProps, mapDispatchToProps)(HomeToConnect)
+export default Home

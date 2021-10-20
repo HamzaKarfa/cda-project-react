@@ -1,0 +1,15 @@
+
+.category-title{
+    position: relative;
+    height: 0;
+    top: -400px;
+    overflow: visible;
+}
+.category-title h1 {
+    width: fit-content;
+}
+.image-container{
+    filter: brightness(0.5);
+    width: 100%;
+    overflow: hidden;
+}
