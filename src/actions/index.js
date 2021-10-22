@@ -1,3 +1,4 @@
+import SubCategory from "../components/SubCategory"
 import { ENTRYPOINT } from "../config/entrypoint"
 
 
@@ -7,9 +8,10 @@ export function isLoading(bool){
     return {type: 'IS_LOADING', payload: bool}
 }
 
-export function getProducts(){
+export function getProducts(subCategoryName){
     return function(dispatch) {
-        fetch(ENTRYPOINT + "/products?page=1", {
+
+        fetch(ENTRYPOINT + "/products?page=1&subCategory.name="+subCategoryName, {
             method: 'get',
             'Accept': 'application/ld+json',
         }).then((response)=>{
@@ -38,4 +40,13 @@ export function getCategories(){
           return dispatch(isLoading(false))
       })
   }
+}
+
+
+export function getCartFromLocalStorage(){
+
+}
+export function addToCart(data){
+    return {type: 'ADD_TO_CART', payload: data}
+    
 }

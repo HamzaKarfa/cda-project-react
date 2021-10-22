@@ -30,7 +30,8 @@ function HomeToConnect({getCategoriesList,state}) {
   return (
     <div>
       <Header Links ={state.categories.length > 0 ?state.categories : [] } />
-      <Router/>
+      {state.categories.length > 0 ?<Router/> : <h1>Loading ....</h1> }
+      
       <Footer/>
     </div>
   );

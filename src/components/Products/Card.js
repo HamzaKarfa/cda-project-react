@@ -13,7 +13,7 @@ function mapStateToProps (state, props){
     return (
         <div className="card m-1 w-25">
             <div className="" style={{ position: 'relative', width: '100%', height: '350px' }}>
-              <img src={"/assets/subCategories/Fruits.jpg"} alt=''/>
+              <img src={"/assets/subCategories/Fruits.jpg"} alt={product.name} className="image-list"/>
             </div>
             <div className="card-body w-100">
                   <div className=" w-100">

@@ -5,6 +5,8 @@ import ProductShow from "../Products/Show";
 import Main from '../Main'
 import Category from '../Category';
 import SubCategory from '../SubCategory';
+import Cart from "../Cart";
+import Login from '../Auth/login'
 function mapStateToProps (state, props){
   return {
     state : state,
@@ -21,14 +23,20 @@ function RouterToConnect({state}){
  
   return (
     <Switch>
-      <Route path="/:categoryName" >
-        <Category/>
+      <Route path="/:categoryName/:subCategoryName/:productName" >
+        <ProductShow/>
       </Route>
       <Route path="/:categoryName/:subCategoryName" >
         <SubCategory/>
       </Route>
-      <Route path="/:categoryName/:subCategoryName/:productName" >
-        <ProductShow/>
+      <Route path="/cart" >
+        <Cart/>
+      </Route>
+      <Route path="/login" >
+        <Login/>
+      </Route>
+      <Route path="/:categoryName" >
+        <Category/>
       </Route>
       <Route path="/" >
         <Main/>

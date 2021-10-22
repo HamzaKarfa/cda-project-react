@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import Footer from "../Main/Footer";
-import jwt_decode from "jwt-decode";
-import router from "next/router";
 // import * as jwt_decode from "jwt-decode";
-
+import './login.css'
+import authProvider from "../App/authProvider";
 const Login = () => {
   useEffect (()=>{
     const signUpButton = document.getElementById('signUp');
@@ -18,39 +16,7 @@ const Login = () => {
     e.preventDefault()
     const email = document.querySelector('.email').value
     const password = document.querySelector('.password').value
-
-    const formDataConnection = new FormData
-    formDataConnection.append('email', email)
-    formDataConnection.append('password', password)
-    // formDataConnection.append('roles', [])
-    const signInJsonData = {
-      "email": email,
-      "password": password,
-    }
-    fetch('https://localhost/authentication_token',{
-      method:'post',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body:JSON.stringify(signInJsonData),
-    }).then((response)=>{
-      console.log(response);
-      return response.json()
-    }).then((data)=>{
-      console.log(data);
-      if (data.token){
-        localStorage.setItem('auth_token', data.token)
-        const decoded = jwt_decode(data.token);
-        console.log(decoded);
-        localStorage.setItem('auth_user', JSON.stringify(decoded))
-        if (decoded.roles.length == 2){
-          router.push('/admin')
-        }else{
-          router.push('/')
-        }
-      }
-    })
+    authProvider.login({email, password})
   }
   function sendFormRegister(e){
     e.preventDefault()
@@ -64,7 +30,7 @@ const Login = () => {
       "username": username,
       "roles": [],
     }
-    fetch('https://localhost/users',{
+    fetch('http://localhost/users',{
       method:'post',
       headers: {
         'Accept': 'application/json',
@@ -78,7 +44,7 @@ const Login = () => {
       console.log(data);
       if (data.token){
 
-        localStorage.setItem('auth_token', data.token)
+        // localStorage.setItem('auth_token', data.token)
       }
     })
   }
@@ -101,7 +67,7 @@ const Login = () => {
                   <input className="username-register" type="text" placeholder="Name" />
                   <input className="email-register" type="email" placeholder="Email" />
                   <input className="password-register" type="password" placeholder="Password" />
-                  <button>S'inscrire</button>
+                  <button className="btn bg-color-secondary text-white">S'inscrire</button>
                 </form>
               </div>
               <div className="form-container sign-in-container">
@@ -116,7 +82,7 @@ const Login = () => {
                   <input className="email" type="email" placeholder="Email" />
                   <input className="password" type="password" placeholder="Password" />
                   <a href="#" className="forgot-password">Forgot your password?</a>
-                  <button>Connexion</button>
+                  <button className="btn bg-color-secondary text-white">Connexion</button>
                 </form>
               </div>
               <div className="overlay-container">
@@ -124,18 +90,17 @@ const Login = () => {
                   <div className="overlay-panel overlay-left">
                     <h1>Identifiez-vous</h1>
                     <p>Vous avez déjà un compte ? </p>
-                    <button className="ghost" id="signIn">Se connecter</button>
+                    <button className="ghost btn bg-color-secondary text-white" id="signIn">Se connecter</button>
                   </div>
                   <div className="overlay-panel overlay-right">
                     <h1>Bienvenue</h1>
                     <p>Vous n’avez pas de compte ?</p>
-                    <button className="ghost" id="signUp">S'inscrire</button>
+                    <button className="ghost btn bg-color-secondary text-white" id="signUp">S'inscrire</button>
                   </div>
                 </div>
               </div>
             </div>
       </div>
-      <Footer/>
     </section>
   );
 }

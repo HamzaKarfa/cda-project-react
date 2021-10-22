@@ -26,6 +26,7 @@ function SubCategoryToConnect({props,getProductList}){
           <div className="card m-2 w-25" key={key}>
             <div className="" style={{ position: 'relative', width: '100%', height: '300px' }}>
               <img
+              className="image-list"
                 alt={subCategory.name}
                 src={myLoader(subCategory.image)}
               />
@@ -35,7 +36,7 @@ function SubCategoryToConnect({props,getProductList}){
                     <h3 className={"text-white text-center p-2 " + props.colors }>{subCategory.name}</h3>
                   </div>
                   <div className="d-flex align-items-end justify-content-center">
-                    <Link to={'/category/'+props.category.id +'/subCategory/'+ subCategory.id} className="text-decoration-none">
+                    <Link to={'/'+props.category.name +'/'+ subCategory.name} className="text-decoration-none">
                       <button onClick={()=>{getProductList(subCategory)}} className='btn bg-color-secondary text-white'>Voir plus</button>
                     </Link>
                   </div>

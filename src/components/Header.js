@@ -10,8 +10,21 @@ function mapStateToProps (state, props){
 const colorList = ['bg-color-primary text-dark','bg-color-orange text-dark','bg-color-yellow text-dark','bg-color-red text-white','bg-color-blue text-white']
 function HeaderToConnect({state, props}) {
     return (
-        <div className="container header-section">
-            <div className="row">
+        <div className="header-section">
+            <div className="bg-color-primary d-flex justify-content-end">
+                <div className= "m-2">
+                    <Link to='/cart'>
+                        Mon panier
+                    </Link>
+
+                </div>
+                <div className= "m-2">
+                    <Link to='/login'>
+                        Se connecter / Créer un compte
+                    </Link>
+                </div>
+            </div>
+            <div className="">
                 <Link to="/" className="text-decoration-none">
                     <div>
                         <div className="w-100 d-flex justify-content-center">

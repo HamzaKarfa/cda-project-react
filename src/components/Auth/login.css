@@ -1,7 +1,6 @@
  .login-section{
     background-color: var(--white);
-    height: 100vh;
-    overflow-y: scroll;
+    height: 100%;
 }
 .login-section .container{
     background-color: var(--white);
@@ -28,10 +27,16 @@
 
 
 
-.login-section button.ghost {
-    border-color: #FFFFFF;
-}
 
+.btn:focus {
+    transition: 1s;
+    box-shadow: none;
+    filter: saturate(0.7);
+    
+}
+.btn:focus ::before {
+    content:'dfdf'    
+}
 .login-section form {
     background-color: #FFFFFF;
     display: flex;

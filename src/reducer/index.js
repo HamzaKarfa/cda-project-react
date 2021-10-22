@@ -1,6 +1,7 @@
 const initialState = {
     products: [],
     categories: [],
+    cart: [],
     isLoading: true
 }
 
@@ -27,7 +28,14 @@ export default function rootReducer (state = initialState, action){
         }
         console.log(newState, 'newState');
         return newState
+      case 'ADD_TO_CART':
+        newState = {
+          ...state,
+            cart : [...state.cart, action.payload]
+        }
+        console.log(newState, 'newState');
+        return newState
       default:
-          return state
+        return state
   }
 }

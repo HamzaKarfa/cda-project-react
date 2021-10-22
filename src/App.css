@@ -112,3 +112,15 @@ hr {
   .bg-color-gray{
     background-color:var(--gray);
   }
+
+
+.image-list{
+  position: relative;
+  height: 100%;
+  width: auto;
+  right:100%;
+  bottom: 0;
+}
+.image-banner{
+  width: 100%;
+}
