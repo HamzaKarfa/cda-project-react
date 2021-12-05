@@ -1,9 +1,10 @@
-import Header from './components/Header'
-import {connect} from "react-redux"
-import { getCategories, isLoading } from './actions'
-import Router from './components/App/router';
-import Footer from './components/Footer';
 import { useEffect, useState } from 'react';
+import {connect} from "react-redux"
+import Header from './components/Header/Header'
+import AuthExample from './components/App/authRouter';
+import Footer from './components/Footer';
+import { getCategories } from './actions/categories'
+import { getCartFromLocalStorage } from './actions/cart'
 import "./App.css"
 function mapStateToProps (state, props){
   return {
@@ -14,24 +15,26 @@ function mapStateToProps (state, props){
 function mapDispatchToProps(dispatch){
   return {
     getCategoriesList: (data)=>dispatch(getCategories(data)),
-    isLoading:(payload)=>dispatch(isLoading(payload))
+    getCart: ()=>dispatch(getCartFromLocalStorage())
   }
 }
 
-function HomeToConnect({getCategoriesList,state}) {
+function HomeToConnect({getCategoriesList, state, getCart}) {
   const [isLoading,setIsLoading] = useState(true)
-  console.log(state)
+  // console.log(state)
   useEffect(() => {
     if (isLoading) {
       getCategoriesList()
+      getCart()
       setIsLoading(false)
     }
-  });
+  },[state.categories]);
   return (
     <div>
-      <Header Links ={state.categories.length > 0 ?state.categories : [] } />
-      {state.categories.length > 0 ?<Router/> : <h1>Loading ....</h1> }
       
+      <Header Links ={state.categories.length > 0 ?state.categories : [] } />
+      {state.categories.length > 0 ?<AuthExample/> : <h1>Loading ....</h1> }
+      {/* {state.categories.length > 0 ?<Router/> : <h1>Loading ....</h1> } */}
       <Footer/>
     </div>
   );
@@ -39,3 +42,4 @@ function HomeToConnect({getCategoriesList,state}) {
 
 const Home =  connect(mapStateToProps, mapDispatchToProps)(HomeToConnect)
 export default Home
+ 

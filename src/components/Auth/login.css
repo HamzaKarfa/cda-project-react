@@ -34,9 +34,7 @@
     filter: saturate(0.7);
     
 }
-.btn:focus ::before {
-    content:'dfdf'    
-}
+
 .login-section form {
     background-color: #FFFFFF;
     display: flex;

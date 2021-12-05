@@ -8,14 +8,14 @@ import { createStore, applyMiddleware } from 'redux';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 import './overide-bootstrap.css';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
+import { BrowserRouter as Router } from "react-router-dom";
+        
 const store = createStore( rootReducer, applyMiddleware(thunkMiddleware))
 
 ReactDOM.render(
     <Provider store={store}>
       <Router>
-        <App />
+        <App/>
       </Router>
     </Provider>,
   document.getElementById('root')

@@ -1,10 +1,8 @@
 
 import {connect} from "react-redux"
-import Footer from "../Footer";
-import SubCategoryList from "../SubCategory/list";
-import { getProducts } from "../../actions";
+import { getProducts } from "../../actions/product";
 import ProductList from "../Products/List";
-import { BrowserRouter, Switch, Route, Link,useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 function mapStateToProps (state, props){
   return {
@@ -23,7 +21,7 @@ function SubCategoryToConnect({categories, props, getProductList}){
   const category = categories.filter((category)=>category.name == categoryName )[0]
   const subCategory = category.subCategories.filter((subCategory)=>subCategory.name ==subCategoryName)[0]
   useEffect(()=>{
-    console.log(subCategory.name);
+    // console.log(subCategory.name);
     if (isLoading) {
       getProductList(subCategory.name);
       setIsLoading(false)
@@ -37,22 +35,21 @@ function SubCategoryToConnect({categories, props, getProductList}){
     'Poissonnerie':'bg-color-blue',
   }
   return (
-<>
-
-    <div className="image-container" style={{ position: 'relative', width: '100%', height: '500px' }}>
-      <img
-        className="image-banner"
-        alt={subCategory.name}
-        src={'/assets/subCategories/'+subCategory.image}
-      />
-    </div>
-    <div className="container category-title">
-      <h1 className={"text-black p-2 my-3 " + colors[category.name] }>{subCategory.name}</h1>
-      <h2 className="text-white">LE MEILLEUR MARCHÉ, C'EST QUAND</h2>
-      <h2 className="text-white">ON DONNE LA PRIMEUR AU GOÛT</h2>
-    </div>
-    <ProductList/>
-</>
+    <>
+        <div className="image-container" style={{ position: 'relative', width: '100%', height: '500px' }}>
+          <img
+            className="image-banner w-100"
+            alt={subCategory.name}
+            src={subCategory.image.imagePath}
+          />
+        </div>
+        <div className="container category-title">
+          <h1 className={"text-black p-2 my-3 " + colors[category.name] }>{subCategory.name}</h1>
+          <h2 className="text-white">LE MEILLEUR MARCHÉ, C'EST QUAND</h2>
+          <h2 className="text-white">ON DONNE LA PRIMEUR AU GOÛT</h2>
+        </div>
+        <ProductList/>
+    </>
 
   )
 }

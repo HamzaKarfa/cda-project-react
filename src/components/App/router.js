@@ -1,26 +1,21 @@
 
 import {connect} from "react-redux"
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import {  Switch, Route} from "react-router-dom";
 import ProductShow from "../Products/Show";
 import Main from '../Main'
 import Category from '../Category';
 import SubCategory from '../SubCategory';
 import Cart from "../Cart";
 import Login from '../Auth/login'
+import Stripe from "../Stripe";
 function mapStateToProps (state, props){
   return {
     state : state,
     props:props
   }
 }
-function mapDispatchToProps(dispatch){
-  return {
-  }
-}
 
 function RouterToConnect({state}){
-
- 
   return (
     <Switch>
       <Route path="/:categoryName/:subCategoryName/:productName" >
@@ -31,6 +26,9 @@ function RouterToConnect({state}){
       </Route>
       <Route path="/cart" >
         <Cart/>
+      </Route>
+      <Route path="/payment" >
+        <Stripe/>
       </Route>
       <Route path="/login" >
         <Login/>
@@ -44,5 +42,5 @@ function RouterToConnect({state}){
     </Switch>
   )
 }
-const Router =  connect(mapStateToProps, mapDispatchToProps)(RouterToConnect)
+const Router =  connect(mapStateToProps)(RouterToConnect)
 export default Router

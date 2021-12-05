@@ -1,6 +1,7 @@
 .card{
     overflow: hidden;
     border-radius: 20px;
+    width: 300px;
 }
 .card .card-head{
     color: var(--white);

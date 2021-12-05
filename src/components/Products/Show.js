@@ -1,10 +1,15 @@
 
 import {connect} from "react-redux"
-import { BrowserRouter, Switch, Route, Link, useParams } from "react-router-dom";
-import { getProducts, addToCart } from "../../actions";
+import { useParams } from "react-router-dom";
+import { getProducts } from "../../actions/product";
+import { addToCart, removeToCart } from "../../actions/cart";
+import { useEffect, useState } from "react";
+import CarouselItem from "../carousel/carouselItem";
+import { Spinner } from "react-bootstrap";
 function mapStateToProps (state, props){
   return {
     products : state.products,
+    cart : state.cart,
     categories : state.categories,
     props:props
   }
@@ -12,14 +17,18 @@ function mapStateToProps (state, props){
 function mapDispatchToProps(dispatch){
   return {
     getProductList: (subCategoryName)=>dispatch(getProducts(subCategoryName)),
-    addProductToCart: (product)=>dispatch(addToCart(product)),
+    addProductToCart: (payload)=>dispatch(addToCart(payload)),
+    removeProductToCart: (payload)=>dispatch(removeToCart(payload)),
   }
 }
-function ProductShowToConnect({products, categories, getProductList, addProductToCart}){
+function ProductShowToConnect({products, categories, getProductList, addProductToCart, cart, removeProductToCart}){
   const { categoryName, subCategoryName, productName } = useParams();
-  const category = categories.filter((category)=>category.name == categoryName )[0]
-  const subCategory = category.subCategories.filter((subCategory)=>subCategory.name ==subCategoryName)[0]
-  const product = products.filter((product)=>product.name ==productName)[0]
+  const category = categories.filter((category)=>category.name === categoryName )[0]
+  const subCategory = category.subCategories.filter((subCategory)=>subCategory.name === subCategoryName)[0]
+  const product = products.filter((product)=>product.name === productName)[0]
+  // console.log(subCategory, category, product);
+  const [quantity, setQuantity] = useState(1)
+  const [message, setMessage] = useState('')
   const colors= {
     'Fruits et légumes':'bg-color-primary',
     'Epicerie d’ici et d’ailleurs':'bg-color-orange',
@@ -30,28 +39,56 @@ function ProductShowToConnect({products, categories, getProductList, addProductT
   if (!products.length) {
     getProductList(subCategory.name)
   }
+  async function handleSubmit(e){
+      e.preventDefault()
+      console.log('====================================');
+      console.log(cart);
+      if (!cart.length) {
+        const newCart = [{product: product, quantity: quantity}]
+        addProductToCart(newCart)
+        localStorage.setItem('cart', newCart)
+
+      } else {
+        const newCart = cart.filter((cartProduct)=>cartProduct.product.id !== product.id);
+        newCart.push({product,quantity})
+        addProductToCart(newCart)
+        localStorage.setItem('cart', JSON.stringify(newCart))
+      }
+      console.log('====================================');
+
+  }
+  async function handleClick(e){
+      e.target.children[0].classList.toggle('d-none')
+    setTimeout(() => {
+      e.target.children[0].classList.toggle('d-none')
+    }, 2000);
+  }
+  useEffect(()=>{
+    setMessage('')
+  }, [message])
   function displayProduct(){
     if (products.length>0) {
       return (
         <>
           <div className="image-container" style={{ position: 'relative', width: '100%', height: '500px' }}>
             <img
-              className="image-banner"
+              className="image-banner w-100"
               alt={product.name}
-              src={'/assets/products/abricot.jpg'}
+              src={product.image.imagePath}
             />
-            
           </div>
           <div className="container category-title">
             <h1 className={"text-white p-2 my-3 "+ colors[category.name]}>{product.name}</h1>
             <h2 className="text-white">{product.origin}</h2>
-            <h2 className="text-white">{product.price} €/kg</h2>
-            <form onSubmit={(e)=>{
-              e.preventDefault()
-              addProductToCart(product)
-            }}>
-              <input type='float'/>
-              <button className="btn bg-color-secondary text-white">Ajouter à mon panier</button>
+            <h2 className="text-white">{product.price.price} € {product.price.type}</h2>
+            <form onSubmit={(e)=>handleSubmit(e)}>
+              <label className="text-white mr-3"> Choisissez la quantité </label>
+              <input type='number' placeholder='1.5' onChange={(e)=>{setQuantity(e.target.value)}}/>
+              <p className="text-white my-2">Prix avec la quantité : <span className="font-weight-bold h4">{product.price.price * quantity } €</span></p>
+              <button className="btn bg-color-secondary text-white my-4 d-flex justify-content-start align-items-center" onClick={(e)=>handleClick(e)}>
+                Ajouter à mon panier
+                <Spinner className="d-none text-transparent" animation="border" variant="success"/>
+              </button>
             </form>
           </div>
         </>
@@ -63,7 +100,7 @@ function ProductShowToConnect({products, categories, getProductList, addProductT
   return (
     <>
       {displayProduct()}
-      
+      <CarouselItem product={product} category={category} subCategory={subCategory}/>
     </>
   )
 }

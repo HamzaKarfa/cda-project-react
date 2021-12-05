@@ -1,6 +1,5 @@
 
 import {connect} from "react-redux"
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import Card from "./Card";
 function mapStateToProps (state, props){
   return {
@@ -8,19 +7,16 @@ function mapStateToProps (state, props){
     props:props
   }
 }
-function mapDispatchToProps(dispatch){
-  return {
-  }
-}
+
 function ProductListToConnect({products, props}){
 
   return (
     <>
         <div className="d-flex justify-content-center flex-wrap">
           {
-            products.map((product)=>{
+            products.map((product,key)=>{
               return (
-                <Card product={product}/>
+                <Card product={product} key={key}/>
               )
             })
           }
@@ -29,5 +25,5 @@ function ProductListToConnect({products, props}){
   )
 }
 
-const ProductList = connect(mapStateToProps, mapDispatchToProps)(ProductListToConnect)
+const ProductList = connect(mapStateToProps)(ProductListToConnect)
 export default ProductList

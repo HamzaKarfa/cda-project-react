@@ -271,7 +271,6 @@ export default function Footer() {
                   <a className="m-2 text-secondary text-decoration-none" href="/magasins"><strong>Nos magasins</strong></a>
                   <a className="m-2 text-secondary text-decoration-none" href="/informations-pratiques/politique-des-donnees-personnelles"><strong>Politique de données personnelles</strong></a>
                   <a className="m-2 text-secondary text-decoration-none" href="/informations-pratiques/politique-dutilisation-des-cookies"><strong>Politique d’utilisation des cookies </strong></a>
-                  <a className="m-2 text-secondary text-decoration-none" href="#" id="cookieopen"><strong>Personnaliser les cookies</strong></a>
                   <a className="m-2 text-secondary text-decoration-none" href="/informations-pratiques/mentions-legales"><strong>Mentions légales</strong></a>
                   <a className="m-2 text-secondary text-decoration-none" href="/sitemap"><strong>Plan du site</strong></a>
               </div>
@@ -283,7 +282,6 @@ export default function Footer() {
                 </p>
                 <div className="d-flex justify-content-around col-md-4 col-12">
                     <a
-                      target="_blank"
                       rel="noopener"
                       href="https://fr-fr.facebook.com/GrandFrais/"
                     >
@@ -295,7 +293,6 @@ export default function Footer() {
                     </a>
 
                     <a
-                      target="_blank"
                       rel="noopener"
                       href="https://www.instagram.com/grandfrais/?hl=fr"
                     >
@@ -307,7 +304,6 @@ export default function Footer() {
                     </a>
 
                     <a
-                      target="_blank"
                       rel="noopener"
                       href="https://www.youtube.com/channel/UCy_xVTDSgxFrqr4Yx35is3g"
                     >

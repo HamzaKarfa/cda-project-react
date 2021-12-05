@@ -1,0 +1,20 @@
+.header-section{
+
+}
+.header-logo svg{
+    position:relative;
+    top:-50px;
+    transform: scale(1.5);
+}
+.header-links{
+
+}
+.header-link{
+    padding:10px;
+    border-radius:10px;
+    font-family: DINPro Bold,sans-serif;
+    text-decoration: none;
+    font-weight: 700;
+    font-size:11pt;
+}
+
