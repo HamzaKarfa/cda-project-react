@@ -41,21 +41,17 @@ function ProductShowToConnect({products, categories, getProductList, addProductT
   }
   async function handleSubmit(e){
       e.preventDefault()
-      console.log('====================================');
-      console.log(cart);
       if (!cart.length) {
-        const newCart = [{product: product, quantity: quantity}]
+        const newCart = [{product: product, quantity: parseFloat(quantity)}]
         addProductToCart(newCart)
         localStorage.setItem('cart', newCart)
 
       } else {
         const newCart = cart.filter((cartProduct)=>cartProduct.product.id !== product.id);
-        newCart.push({product,quantity})
+        newCart.push({product, quantity: parseFloat(quantity)})
         addProductToCart(newCart)
         localStorage.setItem('cart', JSON.stringify(newCart))
       }
-      console.log('====================================');
-
   }
   async function handleClick(e){
       e.target.children[0].classList.toggle('d-none')
@@ -83,7 +79,7 @@ function ProductShowToConnect({products, categories, getProductList, addProductT
             <h2 className="text-white">{product.price.price} € {product.price.type}</h2>
             <form onSubmit={(e)=>handleSubmit(e)}>
               <label className="text-white mr-3"> Choisissez la quantité </label>
-              <input type='number' placeholder='1.5' onChange={(e)=>{setQuantity(e.target.value)}}/>
+              <input type='number' placeholder='1.5' step='0.05' onChange={(e)=>{setQuantity(e.target.value)}}/>
               <p className="text-white my-2">Prix avec la quantité : <span className="font-weight-bold h4">{product.price.price * quantity } €</span></p>
               <button className="btn bg-color-secondary text-white my-4 d-flex justify-content-start align-items-center" onClick={(e)=>handleClick(e)}>
                 Ajouter à mon panier
@@ -100,7 +96,7 @@ function ProductShowToConnect({products, categories, getProductList, addProductT
   return (
     <>
       {displayProduct()}
-      <CarouselItem product={product} category={category} subCategory={subCategory}/>
+      <CarouselItem product={product} color={colors[category.name]} category={category} subCategory={subCategory}/>
     </>
   )
 }

@@ -1,21 +1,17 @@
-import React, { useContext, createContext } from "react";
+import React from "react";
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect,
-  useHistory,
 } from "react-router-dom";
 import Login from "../Auth/login";
-import authProvider from "./authProvider";
 import ProductShow from "../Products/Show";
 import Main from '../Main'
-import Category from '../Category';
+import CategoryShow from '../Category/CategoryShow';
 import SubCategory from '../SubCategory';
 import Cart from "../Cart";
 import Stripe from "../Stripe";
-import {authContext, useAuth, ProvideAuth } from "./AuthContext";
+import { useAuth, ProvideAuth } from "./AuthContext";
 
 // This example has 3 pages: a public page, a protected
 // page, and a login screen. In order to see the protected
@@ -32,7 +28,7 @@ import {authContext, useAuth, ProvideAuth } from "./AuthContext";
 // and you'll see you go back to the page you visited
 // just *before* logging in, the public page.
 
-export default function AuthExample() {
+export default function AuthRouter() {
   /** For more details on
  * `authContext`, `ProvideAuth`, `useAuth` and `useProvideAuth`
  * refer to: https://usehooks.com/useAuth/
@@ -86,9 +82,8 @@ export default function AuthExample() {
               <Login/>
             </Route>
             <Route path="/:categoryName" >
-              <Category/>
+              <CategoryShow/>
             </Route>
-
           </Switch>
         </div>
     </ProvideAuth>
@@ -96,13 +91,4 @@ export default function AuthExample() {
 }
 
 
-
-
-function PublicPage() {
-  return <h3>Public</h3>;
-}
-
-function ProtectedPage() {
-  return <h3>Protected</h3>;
-}
 

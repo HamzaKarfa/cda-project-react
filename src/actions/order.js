@@ -2,7 +2,7 @@ import { ENTRYPOINT } from "../config/entrypoint"
 
 export function newOrder(payload){
     console.log(payload, 'NEW ORDER');
-    return function(dispatch) {
+    return function() {
         fetch(ENTRYPOINT + "/orders", {
             method: 'post',
             headers:{

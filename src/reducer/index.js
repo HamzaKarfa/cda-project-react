@@ -34,14 +34,14 @@ export default function rootReducer (state = initialState, action){
       case 'REMOVE_TO_CART':
         newState = {
           ...state,
-            cart : state.cart.filter((element)=>{return element.product.id !== action.payload.product.id })
+            cart : state.cart.filter((element)=>(element.product.id !== action.payload.product.id))
         }
         console.log(newState, 'newStateAfterRemove');
         return newState
       case 'CART_TOTAL_PRICE':
         newState = {
           ...state,
-            totalPrice : action.payload
+            totalPrice : parseFloat(action.payload)
         }
         console.log(newState, 'newStateSetTotalPrice');
         return newState

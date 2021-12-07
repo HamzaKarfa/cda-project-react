@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { stripeConfirmPayment, stripePayment } from "./requestPayment";
 import { newOrder } from "../../actions/order";
 import './CheckoutForm.css'
-import { ENTRYPOINT } from "../../config/entrypoint";
-import { useHistory } from "react-router";
 function mapStateToProps (state, props){
     return {
       cart : state.cart,
@@ -18,8 +18,8 @@ function mapDispatchToProps (dispatch){
 }
 
 function CheckoutFormToConnect({createOrder, cart, totalPrice}) {
-  const [Name, setName] = useState('');
-  const [Email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState(false);
   const [Message, setMessage] = useState(false);
@@ -27,7 +27,7 @@ function CheckoutFormToConnect({createOrder, cart, totalPrice}) {
   const elements = useElements();
   const history = useHistory()
   useEffect(()=>{
-    if (error) {
+    if (error || !totalPrice) {
       setTimeout(() => {
         history.push('/cart')
       }, 1000);
@@ -37,53 +37,21 @@ function CheckoutFormToConnect({createOrder, cart, totalPrice}) {
       
       ev.preventDefault();
       setProcessing(true);
+      await createOrder({orderProducts: cart, user_id: {email, name}})
+
       if(!stripe || !elements){
         return 
       }
-
-      const stripePayment = await fetch(ENTRYPOINT+"/create-payment-intent", {
-        method:'POST',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          paymentMethodType : "card",
-          currency: 'eur',
-          amount : totalPrice,
-          paymentType: 'Stripe',
-          userInfo : {
-            email : Email,
-            name: Name
-          }
-        })
-      }).then((response)=>{
-        return response.json()
-      }).then((data)=>{
-        if (data.message) {
-          setError(data.message)
-          return 
-        }else{
-          console.log(data);
-          return data
-        }
-      })
-      if (!error) {
-        await stripe.confirmCardPayment(stripePayment.client_secret, {
-          payment_method: {
-            card: elements.getElement(CardElement),
-            billing_details: {
-              name: Name,
-            },
-          },
-        })
-        .then(function(result) {
-          // Handle result.error or result.paymentIntent
-          console.log(result);
+      const stripePaymentResponse = await stripePayment({ totalPrice, email, name })
+      if (stripePaymentResponse) {
+        const resultConfirm = await stripeConfirmPayment(stripe, stripePaymentResponse, elements, CardElement, name)
+        if (resultConfirm) {
           setProcessing(false);
           setMessage('Votre commande a bien été pris en compte');
-        });
-      } 
-
+        }
+      } else {
+        setError('erreur lors du payement de la commande');
+      }
   };
 
 

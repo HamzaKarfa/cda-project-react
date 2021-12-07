@@ -48,9 +48,10 @@ function CartToConnect({cart, removeProductToCart,setCatTotalPrice}){
         <h4 className="m-4">
           total de votre panier : {totalPrice} €
         </h4>
-        <button to='/payment' className="m-4 btn btn-lg bg-color-orange" onClick={()=>{handleClick()}}>
-          Passer au paiement
-        </button>
+        {cart.length ?
+          <button to='/payment' className="m-4 btn btn-lg bg-color-orange" onClick={()=>{handleClick()}}>Passer au paiement </button>
+        : false}
+    
       </div>
 
     </>

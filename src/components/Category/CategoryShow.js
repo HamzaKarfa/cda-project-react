@@ -9,7 +9,7 @@ function mapStateToProps (state, props){
   }
 }
 
-function CategoryToConnect({categories}){
+function CategoryShowToConnect({categories}){
   const { categoryName } = useParams();
   const category = categories.filter((category)=>category.name === categoryName )[0]
 
@@ -42,5 +42,5 @@ function CategoryToConnect({categories}){
 
 
 
-const Category =  connect(mapStateToProps)(CategoryToConnect)
-export default Category
+const CategoryShow =  connect(mapStateToProps)(CategoryShowToConnect)
+export default CategoryShow

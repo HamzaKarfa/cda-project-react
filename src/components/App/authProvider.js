@@ -56,13 +56,13 @@ const authProvider = {
     checkAuth: () => {
         try {
             const auth = JSON.parse(localStorage.getItem('auth'))
-            const token = jwtDecode(auth.token)
-            if (token.exp > parseInt(+new Date()/1000)) {
+            const decodedToken = jwtDecode(auth.token)
+            if (decodedToken.exp > parseInt(+new Date()/1000)) {
                 // console.log('date ok');
-                return Promise.resolve(auth)
+                return Promise.resolve(decodedToken)
             } else {
                 console.log('token expiré');
-                this.refreshToken(auth)
+                authProvider.refreshToken(auth)
             }
         } catch (e) {
             console.log('not connected');
@@ -77,8 +77,9 @@ const authProvider = {
     },
     getIdentity: () => {
         try {
-            const { id, fullName, avatar } = JSON.parse(localStorage.getItem('auth'));
-            return Promise.resolve({ id, fullName, avatar });
+            const auth = JSON.parse(localStorage.getItem('auth'))
+            const decodedToken = jwtDecode(auth.token)
+            return Promise.resolve(decodedToken);
         } catch (error) {
             return Promise.reject(error);
         }
@@ -90,10 +91,11 @@ const authProvider = {
     },
 
     refreshToken: (auth)=>{
+        console.log(auth);
         const request = new Request(ENTRYPOINT+'/authentication_token/refresh', {
             method: 'POST',
-            body: JSON.stringify(auth.refreshToken),
-            headers: new Headers({ 'Content-Type': 'application/ld+json' }),
+            body: JSON.stringify(auth.refresh_token),
+            headers: new Headers({ 'Content-Type': 'application/ld+json', 'Authorization': "Bearer " + auth.token }),
         });
         return fetch(request)
             .then(response => {
@@ -108,7 +110,6 @@ const authProvider = {
             })
             .catch((e) => {
                 console.error(e)
-                return false
             });
     }
 

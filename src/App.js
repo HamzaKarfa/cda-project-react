@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import {connect} from "react-redux"
 import Header from './components/Header/Header'
-import AuthExample from './components/App/authRouter';
+import AuthRouter from './components/App/authRouter';
 import Footer from './components/Footer';
 import { getCategories } from './actions/categories'
 import { getCartFromLocalStorage } from './actions/cart'
+import Spinner from 'react-bootstrap/Spinner'
 import "./App.css"
 function mapStateToProps (state, props){
   return {
@@ -33,8 +34,8 @@ function HomeToConnect({getCategoriesList, state, getCart}) {
     <div>
       
       <Header Links ={state.categories.length > 0 ?state.categories : [] } />
-      {state.categories.length > 0 ?<AuthExample/> : <h1>Loading ....</h1> }
-      {/* {state.categories.length > 0 ?<Router/> : <h1>Loading ....</h1> } */}
+      {state.categories.length > 0 ? <AuthRouter/> 
+      : <div className="loading_page" ><Spinner animation="border" role="status" /> </div>}
       <Footer/>
     </div>
   );

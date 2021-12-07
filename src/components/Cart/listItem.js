@@ -1,4 +1,5 @@
 import {connect} from "react-redux"
+import { Link } from "react-router-dom"
 import {removeToCart} from "../../actions/cart"
 function mapStateToProps (state, props){
   return {
@@ -14,13 +15,13 @@ function mapDispatchToProps(dispatch){
 
 function ListItemToConnect ({cart, removeProductToCart}){
     function deleteCartItem(product){
+        localStorage.setItem('cart', JSON.parse(cart.filter((element)=>(element.product.id !== product.id))));
         removeProductToCart(product)
     }
     return (
         <div className="d-flex flex-column align-items-center">
         {cart.map((element, key)=>{
             return (
-            
                 <div className="container d-flex justify-content-between align-items-center border p-2 m-2" key={key}>
                     <p>
                         {element.product.name}

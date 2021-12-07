@@ -18,7 +18,8 @@ function SubCategoryCardToConnect ({ props, getProductList, categories }){
     return (
         <div className='card m-4 ' key={props.key}>
             <div
-                style={{ position: 'relative', width: '100%', height: '300px' }}
+                className="d-flex justify-content-center"
+                style={{ height: '300px' }}
             >
                 <img
                 className='image-list'

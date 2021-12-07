@@ -1,10 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
-
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import { BrowserRouter } from "react-router-dom";
-
 import CheckoutForm from "./CheckoutForm";
 
 

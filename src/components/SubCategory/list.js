@@ -8,7 +8,7 @@ function mapStateToProps (state, props) {
 }
 
 
-function SubCategoryToConnect ({ props }) {
+function SubCategoryListToConnect ({ props }) {
   console.log(props, 'props');
   return (
     <div className='d-flex flex-wrap justify-content-center'>
@@ -21,5 +21,5 @@ function SubCategoryToConnect ({ props }) {
   )
 }
 
-const SubCategoryList = connect(mapStateToProps)(SubCategoryToConnect)
+const SubCategoryList = connect(mapStateToProps)(SubCategoryListToConnect)
 export default SubCategoryList

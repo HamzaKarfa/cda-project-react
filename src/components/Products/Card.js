@@ -5,18 +5,22 @@ import { Link } from "react-router-dom";
 
 function mapStateToProps (state, props){
   return {
-    product: props.product
+    product: props.product,
+    color : props.color
   }
 }
- function CardToConnect({product}) {
+ function CardToConnect({product, color}) {
     return (
         <div className="card m-4">
-            <div className="" style={{ position: 'relative', width: '100%', height: '350px' }}>
+            <div
+                className="d-flex justify-content-center"
+                style={{ height: '300px' }}
+            >
               <img src={product.image.imagePath} alt={product.name} className="image-list"/>
             </div>
             <div className="card-body w-100">
                   <div className=" w-100">
-                      <h3 className="text-white">{product.name}</h3>
+                      <h3 className={"text-white " + color}>{product.name}</h3>
                       <p className="text-white">Origine {product.origin}</p>
                       <p className="text-white">Prix {product.price.price}€ {product.price.type}</p>
                   </div>

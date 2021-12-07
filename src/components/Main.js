@@ -1,8 +1,17 @@
 import React from "react";
+import { connect } from "react-redux";
+import CategoryCarousel from './Category/CategoryCarousel'
+import Slider from 'react-slick'
 import "./main.css"
 
-export default function Main() {
+function mapStateToProps (state) {
+  return {
+      categories: state.categories,
+  }
+}
+function MainToConnect({categories}) {
   return (
+    <>
     <section className = "main-section">
         <div className="row">
             <div className="col-md-5 col-12  bg-color-primary d-flex flex-column align-items-start justify-content-between p-5 ">
@@ -10,16 +19,22 @@ export default function Main() {
                 <p>Nos maraîchers, épiciers, fromagers, bouchers, poissonniers, s’engagent tous pour le plaisir de vos assiettes !</p>
                 <a href="/nos-engagements/"><button className="text-white btn bg-color-red">Nos engagements</button></a>
             </div>
-            <div className="col-7">
+            <div className="col-md-7 col-12">
               <img
                 src="/assets/HP-ENGAGEMENTS.jpg"
                 alt="Nos Engagements"
-                className="card_img"
-                width={800}
+                className="card_img img-fluid"
                 height={350}
               />
             </div>
         </div>
     </section>
+
+    <section >
+        <CategoryCarousel />
+    </section>
+    </>
+
   );
 }
+export default connect(mapStateToProps)(MainToConnect)
